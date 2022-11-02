@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 public class Player : MonoBehaviour
 {
@@ -167,12 +168,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Leaderboard()
+    {
+        
+    }
     void Death()
     {
         Health = 0;
         Time.timeScale = 0;
         AudioListener.pause = true;
-        Application.ExternalCall("ShowAd");
+        YandexGame.FullscreenShow();
         EmitSignal("Death");
     }   
     void EnergyRecover()

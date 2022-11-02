@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class ScenaLoader : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ScenaLoader : MonoBehaviour
 
     public void Start()
     {
+        YandexGame.FullscreenShow();
         if(AudioListener.pause)
         {
             ButtonOn.SetActive(false);

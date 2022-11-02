@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using YG;
 
 public class HUD : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class HUD : MonoBehaviour
     [Header("--------------------------------")]
     [SerializeField] private    Ability SoulStormAbility;
     [SerializeField] private    Animator RedShine;
+    [SerializeField] private    GameObject LeaderBoard;
 
     public void Initialization()
     {
@@ -73,6 +75,7 @@ public class HUD : MonoBehaviour
             BestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
             if(PlayerPrefs.GetInt("BestScore") < GameManager.GameScore)
             {
+                YandexGame.NewLeaderboardScores("Leaderboard", GameManager.GameScore);
                 PlayerPrefs.SetInt("BestScore", GameManager.GameScore);
                 PlayerPrefs.Save();
                 BestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
@@ -84,20 +87,24 @@ public class HUD : MonoBehaviour
     {
         switch (NewMessage)
         {
-            case "Death" : 
+            case "Death" :
+                HUDScoreAndBestScore("RefreshScore");
+                LeaderBoard.SetActive(true);
+                YandexGame.FullscreenShow();
                 InputManager.IsEnabled = false;
                 Pannel.SetActive(true); 
                 DeathPannel.SetActive(true); 
                 SaveHousePannel.SetActive(false);
-                HUDScoreAndBestScore("RefreshScore");
                 Time.timeScale = 0;
                 break;
-            case "Save" : 
+            case "Save" :
+                HUDScoreAndBestScore("RefreshScore");
+                LeaderBoard.SetActive(true);
+                YandexGame.FullscreenShow();
                 InputManager.IsEnabled = false; 
                 Pannel.SetActive(true); 
                 DeathPannel.SetActive(false);
                 SaveHousePannel.SetActive(true);
-                HUDScoreAndBestScore("RefreshScore");
                 Time.timeScale = 0;
                 break;
             default: break;
@@ -109,6 +116,7 @@ public class HUD : MonoBehaviour
         if(NewMessage == "HidePannel")
         {
             Pannel.SetActive(false);
+            LeaderBoard.SetActive(false);
             AudioListener.pause = AudioManager.CheckSoundState;
             InputManager.IsEnabled = true;
         }

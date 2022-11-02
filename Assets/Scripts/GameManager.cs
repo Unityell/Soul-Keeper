@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     public void IntoSaveHouse()
     {
         AudioListener.pause = true;
-        Application.ExternalCall("ShowAd");
         LandGenerator.DestroyAllSpawnedObject();
         EmitSignal("RefreshScore");
         EmitSignal("Save");
