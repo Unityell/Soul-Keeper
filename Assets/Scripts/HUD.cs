@@ -75,9 +75,9 @@ public class HUD : MonoBehaviour
             BestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
             if(PlayerPrefs.GetInt("BestScore") < GameManager.GameScore)
             {
-                YandexGame.NewLeaderboardScores("Leaderboard", GameManager.GameScore);
                 PlayerPrefs.SetInt("BestScore", GameManager.GameScore);
                 PlayerPrefs.Save();
+                YandexGame.NewLeaderboardScores("Leaderboard", PlayerPrefs.GetInt("BestScore"));
                 BestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
             } 
         }

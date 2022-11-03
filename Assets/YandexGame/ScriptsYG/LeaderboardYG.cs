@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityToolbag;
 
 namespace YG
@@ -20,7 +21,7 @@ namespace YG
         [Tooltip(@"Когда следует обновлять лидерборд?\nStart - Обновлять в методе Start.\nOnEnable - Обновлять при каждой активации объекта (в методе OnEnable)\nDoNotUpdate - Не обновлять лидерборд с помощью данного скрипта (подразоумивается, что метод обновления ""UpdateLB"" вы будете запускать сами, когда вам потребуется.")]
         public UpdateLBMethod updateLBMethod = UpdateLBMethod.OnEnable;
         [Tooltip("Перетащите компонент Text для записи описания таблицы, если вы не выбрали продвинутую таблицу (advanced)")]
-        public Text entriesText;
+        public TextMeshProUGUI entriesText;
         [Tooltip("Продвинутая таблица. Поддерживает подгрузку авата и конвертацию рекордов в тип Time. Подгружает все данные в отдельные элементы интерфейса.")]
         public bool advanced;
         public enum PlayerPhoto { NonePhoto, Small, Medium, Large };
@@ -88,10 +89,28 @@ namespace YG
 
                 if (!advanced)
                 {
-                    if (entriesLB == "No data") entriesText.text = error;
-                    else entriesText.text = entriesLB;
+                    if (entriesLB == "No data") 
+                    {
+                        entriesText.text = error;
+                        
+                    }
+                    else 
+                    {
+                        if(YandexGame.playerName != "Anonymous")
+                        {
+                            string[] subs = entriesLB.Split('\n');
+                            for (int i = 0; i < subs.Length; i++)
+                            {
+                                if(subs[i].Contains(YandexGame.playerName))
+                                {
+                                    subs[i] = "<color=red>" + subs[i] + "</color>";
+                                    break;
+                                }
+                            }
+                            entriesText.text = string.Join("\n", subs);
+                        }
+                    }
                 }
-                    
                 else
                 {
                     GameObject sampleContainer = transform.GetComponentInChildren<GridLayoutGroup>().transform.GetChild(0).gameObject;
@@ -113,6 +132,7 @@ namespace YG
 
                             sampleContainer.transform.Find("Rank").GetComponentInChildren<Text>().text = rank[i].ToString();
                             sampleContainer.transform.Find("Name").GetComponentInChildren<Text>().text = playersName[i];
+                            print(sampleContainer.transform.Find("Name").GetComponentInChildren<Text>().text + " " + "Yeah");
 
                             if (!timeTypeConvert)
                                 sampleContainer.transform.Find("Score").GetComponentInChildren<Text>().text = scorePlayers[i].ToString();
