@@ -142,7 +142,7 @@ public class Generation : MonoBehaviour
                 default: break;
             }
             AllParalax[i].transform.position -= Vector3.right * PSpeed * GM.GameSpeed * Time.deltaTime;
-            if(AllParalax[i].transform.localPosition.x <= -5.4f)
+            if(AllParalax[i].transform.localPosition.x <= -5.5f)
             {
                 float Diff = Mathf.Abs(AllParalax[i].transform.localPosition.x) - 5.4f;
                 AllParalax[i].transform.localPosition = new Vector3(10.84f - Diff, AllParalax[i].transform.localPosition.y, AllParalax[i].transform.localPosition.z);

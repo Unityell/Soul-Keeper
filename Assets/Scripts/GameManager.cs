@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         InputManager.Initialization();
         RefreshScoreScore();
         ShadowTimer = LevelLenghtInSeconds;
-        Application.targetFrameRate = FPS;
+        //Application.targetFrameRate = FPS;
     }
     public void EmitSignal(string NewMessage)
     {

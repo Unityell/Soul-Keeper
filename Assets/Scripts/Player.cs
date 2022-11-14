@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Jump(string Message)
+    public void Jump(string Message)
     {
         if(Message == "Jump" && IsGroundedCheck())
         {
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Kick(string Message)
+    public void Kick(string Message)
     {
         if(Message == "Kick" && !CheckKick)
         {
